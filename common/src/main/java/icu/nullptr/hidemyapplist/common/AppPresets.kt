@@ -140,7 +140,7 @@ class AppPresets private constructor() {
         presetList.forEach {
             if (!it.value.containsPackage(packageName)) {
                 if (appInfo == null)
-                    appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
+                    appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
 
                 try {
                     if (appInfo != null && it.value.addPackageInfoPreset(appInfo)) {
@@ -155,7 +155,7 @@ class AppPresets private constructor() {
         }
 
         if (appInfo == null)
-            appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
+            appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
 
         if (appInfo != null)
             addedInAList = RiskyPackageUtils.instance.tryToAddIntoGMSConnectionList(appInfo) {

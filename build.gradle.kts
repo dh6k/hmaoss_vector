@@ -64,7 +64,11 @@ val gitCommitCountAfterOss = gitCommitCount - 432
 val minSdkVer by extra(29)
 val targetSdkVer by extra(36)
 
-val appVerCode by extra(gitCommitCount + 0x6f7373) // commit count + 0xOSS
+// Xposed fork: base versionCode from master + branch commit count for upgrades
+val branchCommitCount = runCatching {
+    "git rev-list HEAD --count".execute().toInt()
+}.getOrDefault(0)
+val appVerCode by extra(gitCommitCount + branchCommitCount + 0x6f7373) // commit count + 0xOSS
 // Xposed fork based on oss-162: fixed version name
 val appVerName by extra("oss-162-xposed")
 
