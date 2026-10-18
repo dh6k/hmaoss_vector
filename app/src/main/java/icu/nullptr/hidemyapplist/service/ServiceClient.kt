@@ -130,4 +130,21 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
         service?.writeFD(type, fd)
     }
+
+    // Backported from 173 (delegating to service)
+    override fun getLoadedHooks(): Array<String>? = service?.loadedHooks
+
+    override fun getManagerWorkMode(): Int = service?.managerWorkMode ?: 0
+
+    override fun startMainActivityAsUser(packageName: String?, userId: Int) {
+        service?.startMainActivityAsUser(packageName, userId)
+    }
+
+    override fun migrateData(packageName: String?): Boolean = service?.migrateData(packageName) ?: false
+
+    override fun reloadConfigFromFile() {
+        service?.reloadConfigFromFile()
+    }
+
+    override fun getUserProfiles(): IntArray? = service?.userProfiles
 }
