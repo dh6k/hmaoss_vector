@@ -20,7 +20,7 @@ import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
+import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
@@ -98,7 +98,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         logI(TAG) { "HMA service initialized" }
 
         AppPresets.instance.loggerFunction = { level, msg ->
-            logWithLevel(level, "AppPresets") { msg }
+            logWithLevel(level, "AppPresets") { msg() }
         }
 
         thread {
@@ -343,7 +343,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
-        (caller in Constants.gmsPackages) && appHasGMSConnection(query)
+        (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)
 
     fun shouldHideFromUid(uid: Int, query: String?): Boolean? {
         if (query == null) return null
@@ -602,7 +602,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
 
-        AppPresets.instance.reloadPresets(apps)
+        AppPresets.instance.reloadPresets(apps, true)
         logI(TAG) { "All presets are loaded" }
     }
 

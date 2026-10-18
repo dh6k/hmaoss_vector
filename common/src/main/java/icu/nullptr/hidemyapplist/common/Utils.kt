@@ -8,8 +8,14 @@ import android.os.Binder
 import android.os.Build
 import java.util.Random
 import java.util.zip.ZipFile
+import kotlinx.serialization.json.Json
 
 object Utils {
+
+    val encoder = Json {
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }
 
     fun generateRandomString(length: Int): String {
         val leftLimit = 97   // letter 'a'
@@ -101,4 +107,7 @@ object Utils {
             return false
         }
     }
+
+    fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
+            flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 }
