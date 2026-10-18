@@ -51,10 +51,13 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         "com.tester.wpswpatester",
         "com.paget96.lsandroid",
         "ua.polodarb.gmsflags",
+        "ua.polodarb.gmsflags.reborn",
         "com.tortel.syslog",
         "com.jhc.detach",
         "com.sunilpaulmathew.debloater",
         "com.rk.taskmanager",
+        "be.mygod.vpnhotspot",
+        "com.emanuelef.remote_capture",
 
         // NetHunter related apps
         "com.mayank.rucky",
