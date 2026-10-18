@@ -532,7 +532,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         AppPresets.instance.apply {
             when (eventType) {
                 Intent.ACTION_PACKAGE_ADDED -> {
-                    handlePackageAdded(pms, packageName)
+                    handlePackageAdded(pms, packageName) {}
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {
                     // ignore package updates
@@ -540,7 +540,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                         return
                     }
 
-                    handlePackageRemoved(packageName)
+                    handlePackageRemoved(packageName) {}
                 }
             }
         }
