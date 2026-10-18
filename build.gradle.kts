@@ -18,7 +18,9 @@ fun String.execute(currentWorkingDir: File = file("./")): String {
 }
 
 val localProperties = Properties()
-localProperties.load(file("local.properties").inputStream())
+runCatching {
+    file("local.properties").inputStream().use { localProperties.load(it) }
+}
 val ciBuild = providers.environmentVariable("CI").isPresent
 val officialBuild by extra(localProperties.getProperty("officialBuild", "false") == "true")
 
@@ -63,7 +65,8 @@ val minSdkVer by extra(29)
 val targetSdkVer by extra(36)
 
 val appVerCode by extra(gitCommitCount + 0x6f7373) // commit count + 0xOSS
-val appVerName by extra("oss-${gitCommitCountAfterOss}${gitHasUncommittedSuffix}")
+// Xposed fork based on oss-162: fixed version name
+val appVerName by extra("oss-162-xposed")
 
 /*
  * configVerCode, serviceVerCode and minBackupVerCode is used by other build.gradle.kts files
