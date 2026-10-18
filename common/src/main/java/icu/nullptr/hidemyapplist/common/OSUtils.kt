@@ -56,7 +56,7 @@ object OSUtils {
 
     fun isPackageExists(context: Context, packageName: String): Boolean {
         return try {
-            context.packageManager.getPackageUid(packageName, 0) > 0
+            context.packageManager.getPackageUid(packageName, 0) >= 0
         } catch (_: Throwable) {
             false
         }
