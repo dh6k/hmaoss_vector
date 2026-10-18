@@ -643,4 +643,27 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         receiveStream.close()
         fd.close()
     }
+
+    // Backported from 173 (stub implementations for 162 base)
+    override fun getLoadedHooks(): Array<String> {
+        return frameworkHooks.map { it.javaClass.name }.toTypedArray()
+    }
+
+    override fun getManagerWorkMode(): Int = 1 // MANAGER_WORK_MODE_OK
+
+    override fun startMainActivityAsUser(packageName: String, userId: Int) {
+        throw RemoteException("Not implemented on 162 base")
+    }
+
+    override fun migrateData(packageName: String): Boolean = false
+
+    override fun reloadConfigFromFile() {
+        runCatching {
+            if (configFile.exists()) {
+                config = JsonConfig.parse(configFile.readText())
+            }
+        }
+    }
+
+    override fun getUserProfiles(): IntArray = intArrayOf(0)
 }
