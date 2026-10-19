@@ -60,16 +60,6 @@
     <string name="home_exported">Backed up config</string>
     <string name="home_new_update">New update available: %s</string>
     <string name="home_update">Update: %s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
 
     <!-- App select -->
     <string name="list_show_system">Show system apps</string>
