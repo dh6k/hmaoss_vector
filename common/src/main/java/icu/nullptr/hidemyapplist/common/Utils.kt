@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import java.util.Random
 import java.util.zip.ZipFile
 import kotlinx.serialization.json.Json
@@ -110,4 +111,18 @@ object Utils {
 
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
+
+    fun JsonConfig.cleanRemnantsFromConfig() {
+        // STEP 1: Remove empty app and settings templates
+        templates.removeIf { _, template -> template.appList.isEmpty() }
+        settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
+
+        // STEP 2: Remove mismatching items
+        for (app in scope.values) {
+            app.applyTemplates.removeIf { !templates.containsKey(it) }
+            app.applyPresets.removeIf { it !in AppPresets.instance.presetNames }
+            app.applySettingTemplates.removeIf { !settingsTemplates.containsKey(it) }
+            app.applySettingsPresets.removeIf { it !in SettingsPresets.instance.presetNames }
+        }
+    }
 }
